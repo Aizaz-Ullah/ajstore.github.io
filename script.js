@@ -22,9 +22,9 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// Add animation on scroll for app card
-const appCard = document.querySelector('.app-card');
-if (appCard) {
+// Add animation on scroll for all app cards
+const appCards = document.querySelectorAll('.app-card');
+appCards.forEach(card => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -35,27 +35,26 @@ if (appCard) {
     }, { threshold: 0.1 });
 
     // Set initial state
-    appCard.style.opacity = '0';
-    appCard.style.transform = 'translateY(30px)';
-    appCard.style.transition = 'all 0.6s ease-out';
-    observer.observe(appCard);
-}
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = 'all 0.6s ease-out';
+    observer.observe(card);
+});
 
 // Download button click tracking
-const downloadBtn = document.querySelector('.btn-download');
-if (downloadBtn) {
-    downloadBtn.addEventListener('click', function(e) {
-        // Check if the file exists (for demo purposes)
+const downloadBtns = document.querySelectorAll('.btn-download');
+downloadBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
         if (href === '#' || !href) {
             e.preventDefault();
             alert('App download will be available soon! Please check back later.');
         } else {
-            console.log('App download started!');
+            console.log('Download started:', this.closest('.app-info')?.querySelector('h3')?.textContent || 'App');
         }
     });
-}
+});
 
 // Console welcome message
-console.log('%c🎵 Welcome to AjTunes!', 'font-size: 20px; color: #6633ff; font-weight: bold;');
-console.log('%cThank you for visiting our app store!', 'font-size: 14px; color: #333;');
+console.log('%c🛒 Welcome to AjStore!', 'font-size: 20px; color: #7c3aed; font-weight: bold;');
+console.log('%c🎵 Download AJTunes & ✋ Air Scroll - your favorite Android apps!', 'font-size: 14px; color: #a1a1aa;');
